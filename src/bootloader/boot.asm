@@ -63,6 +63,49 @@ puts:
         pop si
         ret
 
+read_char:
+    push cx
+    push ax
+
+    mov bh, 00h
+    int 0x16
+    mov cl, al
+
+    pop ax
+
+    mov al, cl
+
+    pop cx
+
+    ret
+
+write_char:
+    push ax
+    push bx
+    
+    mov bl, 2
+    mov ah, 0Eh
+    mov bh, 0
+    int 0x10
+    cmp al, 8
+    je .back_space
+    jmp .done
+
+    .back_space:
+
+    mov ah, 0Ah
+    mov al, 0
+    mov bh, 0
+    mov cx, 1
+    int 0x10
+
+    .done:
+
+    pop bx
+    pop ax
+    
+    ret
+
 main:
     mov ax, 0
     mov ds, ax
@@ -82,6 +125,11 @@ main:
 
     call draw_rect
     
+    .loop:
+        call read_char
+        call write_char
+        jmp .loop
+
     hlt
 
 .halt:
