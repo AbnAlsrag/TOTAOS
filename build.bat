@@ -1,3 +1,9 @@
-nasm src/main.asm -f bin -o bin/main.bin
-copy bin\main.bin bin\main_floppy.img
-trunc bin/main_floppy.img 1474560
+:: bootloader
+nasm src/bootloader/boot.asm -f bin -o bin/bootloader.bin
+
+:: kernel
+nasm src/kernel/main.asm -f bin -o bin/kernel.bin
+
+:: floppy img
+copy bin\bootloader.bin bin\main_floppy.img
+type bin\kernel >> bin\main_floppy.img
