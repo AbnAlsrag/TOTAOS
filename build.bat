@@ -6,4 +6,4 @@ nasm src/kernel/main.asm -f bin -o bin/kernel.bin
 
 :: floppy img
 copy bin\bootloader.bin bin\main_floppy.img
-type bin\kernel >> bin\main_floppy.img
+type bin\kernel.bin >> bin\main_floppy.img
