@@ -128,7 +128,7 @@ main:
 
     mov dl, 0
     mov ax, 1
-    mov cl, 1
+    mov cl, 2
     mov bx, 0x7E00
     call read_sector
     
